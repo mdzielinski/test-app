@@ -1,22 +1,22 @@
-package app.closer.testapp;
+package app.closer.testapp.flow.service;
 
+import app.closer.testapp.data.Equation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 @Slf4j
 @Service
-@Profile("prod")
+@Profile("!dummy")
 public class Calculator implements ICalculator {
 
-  public String calculate(String equation){
+  public Equation calculate(Equation equation) {
     String result = null;
     log.debug("calculated result: " + result);
     return evaluate(equation);
-
   }
 
-  private String evaluate(String equation) {
+  private Equation evaluate(Equation equation) {
     return null;
   }
 }
