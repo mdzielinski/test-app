@@ -1,6 +1,6 @@
 package app.closer.testapp.data.validation;
 
-import static java.lang.annotation.ElementType.FIELD;
+import static java.lang.annotation.ElementType.PARAMETER;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 import java.lang.annotation.Documented;
@@ -11,8 +11,8 @@ import javax.validation.Payload;
 
 @Documented
 @Retention(RUNTIME)
-@Target(FIELD)
-@Constraint(validatedBy = BasicExpressionValidator.class)
+@Target(PARAMETER)
+@Constraint(validatedBy = {ExpressionValidator.class, HttpServletRequestValidator.class})
 public @interface BasicExpression {
   String message() default
       "Invalid mathematical expression. Allowed set of symbols: "

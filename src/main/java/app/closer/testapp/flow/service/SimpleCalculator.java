@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 @Slf4j
 @Service
 @Profile("!dummy")
-public class Simple implements ICalculator {
+public class SimpleCalculator implements ICalculator {
 
   public Equation calculate(Equation equation) {
     String result = null;

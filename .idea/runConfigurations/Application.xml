@@ -1,6 +1,6 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="TestApp" type="Application" factoryName="Application" nameIsGenerated="true">
-    <option name="MAIN_CLASS_NAME" value="app.closer.testapp.TestApp" />
+  <configuration default="false" name="Application" type="Application" factoryName="Application" nameIsGenerated="true">
+    <option name="MAIN_CLASS_NAME" value="app.closer.testapp.Application" />
     <module name="test-app" />
     <option name="VM_PARAMETERS" value="-Dspring.profiles.active=dummy" />
     <extension name="coverage">
