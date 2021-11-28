@@ -6,8 +6,8 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 
-import app.closer.testapp.data.Equation;
 import app.closer.testapp.data.Expression;
+import app.closer.testapp.data.Result;
 import app.closer.testapp.flow.service.ICalculator;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
@@ -38,13 +38,10 @@ public class EquationControllerTest {
   @Test
   public void should_pass_expression_in_path_and_return_result() throws Exception {
     var expression = "0+1-2*3/(45,6789)";
-    var result = "0.86864832559";
+    var result = Result.of(0.86864832559);
 
-    Equation equation =
-        Equation.builder().expression(new Expression(expression)).result(result).build();
-
-    ArgumentCaptor<Equation> captor = ArgumentCaptor.forClass(Equation.class);
-    when(calculator.calculate(captor.capture())).thenReturn(equation);
+    ArgumentCaptor<Expression> expressionArgumentCaptor = ArgumentCaptor.forClass(Expression.class);
+    when(calculator.calculate(expressionArgumentCaptor.capture())).thenReturn(result);
 
     var mvcResult =
         mockMvc
@@ -52,20 +49,17 @@ public class EquationControllerTest {
             .andExpect(MockMvcResultMatchers.status().is(HttpStatus.OK.value()))
             .andReturn();
 
-    assertEquals(mvcResult.getResponse().getContentAsString(), result);
-    assertEquals(captor.getValue().getExpression().getBody(), expression);
+    assertEquals(mvcResult.getResponse().getContentAsString(), result.toString());
+    assertEquals(expressionArgumentCaptor.getValue().getBody(), expression);
   }
 
   @Test
   public void should_pass_expression_in_body_and_return_result() throws Exception {
     var expression = "0+1-2*3/(45,6789)";
-    var result = "0.86864832559";
+    var result = Result.of(0.86864832559);
 
-    Equation equation =
-        Equation.builder().expression(new Expression(expression)).result(result).build();
-
-    ArgumentCaptor<Equation> captor = ArgumentCaptor.forClass(Equation.class);
-    when(calculator.calculate(captor.capture())).thenReturn(equation);
+    ArgumentCaptor<Expression> expressionArgumentCaptor = ArgumentCaptor.forClass(Expression.class);
+    when(calculator.calculate(expressionArgumentCaptor.capture())).thenReturn(result);
 
     var mvcResult =
         mockMvc
@@ -76,7 +70,7 @@ public class EquationControllerTest {
             .andExpect(MockMvcResultMatchers.status().is(HttpStatus.OK.value()))
             .andReturn();
 
-    assertEquals(mvcResult.getResponse().getContentAsString(), result);
-    assertEquals(captor.getValue().getExpression().getBody(), expression);
+    assertEquals(mvcResult.getResponse().getContentAsString(), result.toString());
+    assertEquals(expressionArgumentCaptor.getValue().getBody(), expression);
   }
 }

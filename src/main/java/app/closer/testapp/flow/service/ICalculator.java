@@ -1,7 +1,8 @@
 package app.closer.testapp.flow.service;
 
-import app.closer.testapp.data.Equation;
+import app.closer.testapp.data.Expression;
+import app.closer.testapp.data.Result;
 
 public interface ICalculator {
-  Equation calculate(Equation equation);
+  Result calculate(Expression equation);
 }

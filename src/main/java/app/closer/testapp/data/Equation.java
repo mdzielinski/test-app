@@ -2,17 +2,13 @@ package app.closer.testapp.data;
 
 import java.util.UUID;
 import javax.validation.constraints.NotNull;
-import lombok.Data;
-import lombok.experimental.SuperBuilder;
 import org.springframework.validation.annotation.Validated;
 
-@Data
-@SuperBuilder
 @Validated
-public class Equation {
+public final class Equation {
 
-  @NotNull private Expression expression;
-  private String result;
+  @NotNull private final Expression expression;
+  private Result result;
 
   public Equation(Expression expression) {
     this.expression = expression;
@@ -28,6 +24,6 @@ public class Equation {
         + " , expression: "
         + expression
         + " = "
-        + result;
+        + (result == null ? "<not obtained yet>" : result.toString());
   }
 }

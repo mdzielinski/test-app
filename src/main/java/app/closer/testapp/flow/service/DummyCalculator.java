@@ -1,6 +1,7 @@
 package app.closer.testapp.flow.service;
 
-import app.closer.testapp.data.Equation;
+import app.closer.testapp.data.Expression;
+import app.closer.testapp.data.Result;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
@@ -10,15 +11,14 @@ import org.springframework.stereotype.Service;
 @Profile("dummy")
 public class DummyCalculator implements ICalculator {
 
-  public Equation calculate(Equation equation) {
-    String result;
-    result = switch (equation.getExpression().toString()) {
-      case "(2+2)*2" -> "8";
-      case "2+2*2" -> "6";
-      default -> "0";
+  public Result calculate(Expression expression) {
+    Result result;
+    result = switch (expression.getBody()) {
+      case "(2+2)*2" -> Result.of(8);
+      case "2+2*2" -> Result.of(6);
+      default -> Result.of(0);
     };
-    equation.setResult(result);
-    log.debug("calculated result: " + equation.getResult());
-    return equation;
+    log.debug("calculated result: " + result);
+    return result;
   }
 }

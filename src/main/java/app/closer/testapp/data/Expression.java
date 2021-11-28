@@ -6,7 +6,7 @@ import org.springframework.validation.annotation.Validated;
 
 @Data
 @Validated
-public class Expression {
+public final class Expression {
 
   private final String body;
   private final UUID expressionUUID;

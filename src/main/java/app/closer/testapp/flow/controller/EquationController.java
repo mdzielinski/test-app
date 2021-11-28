@@ -1,6 +1,5 @@
 package app.closer.testapp.flow.controller;
 
-import app.closer.testapp.data.Equation;
 import app.closer.testapp.data.Expression;
 import app.closer.testapp.data.validation.BasicExpression;
 import app.closer.testapp.flow.service.ICalculator;
@@ -26,12 +25,12 @@ public class EquationController {
   public String calculate(@BasicExpression HttpServletRequest request) {
     Expression expression = new Expression(FormulaExtractor.extractFrom(request));
     log.info("UUID: {}, expression: {}", expression.getExpressionUUID(), expression);
-    return calculator.calculate(new Equation(expression)).getResult();
+    return calculator.calculate(expression).get().toString();
   }
 
   @PostMapping("/evaluate")
   public String calculate(@RequestBody @BasicExpression Expression expression) {
     log.info("UUID: {}, expression: {}", expression.getExpressionUUID(), expression);
-    return calculator.calculate(new Equation(expression)).getResult();
+    return calculator.calculate(expression).get().toString();
   }
 }
