@@ -1,4 +1,4 @@
-package app.closer.testapp.data.validation;
+package app.closer.testapp.flow.validation;
 
 import static org.apache.logging.log4j.util.Strings.isBlank;
 

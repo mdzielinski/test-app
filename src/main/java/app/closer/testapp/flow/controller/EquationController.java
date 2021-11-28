@@ -1,7 +1,7 @@
 package app.closer.testapp.flow.controller;
 
 import app.closer.testapp.data.Expression;
-import app.closer.testapp.data.validation.BasicExpression;
+import app.closer.testapp.flow.validation.BasicExpression;
 import app.closer.testapp.flow.service.ICalculator;
 import app.closer.testapp.util.FormulaExtractor;
 import javax.servlet.http.HttpServletRequest;

@@ -1,4 +1,4 @@
-package app.closer.testapp.data.validation;
+package app.closer.testapp.flow.validation;
 
 import app.closer.testapp.data.Expression;
 import javax.validation.ConstraintValidator;

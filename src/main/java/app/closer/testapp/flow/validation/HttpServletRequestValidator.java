@@ -1,4 +1,4 @@
-package app.closer.testapp.data.validation;
+package app.closer.testapp.flow.validation;
 
 import app.closer.testapp.util.FormulaExtractor;
 import javax.servlet.http.HttpServletRequest;
