@@ -10,7 +10,7 @@ public final class Equation {
   @NotNull private final Expression expression;
   private Result result;
 
-  public Equation(Expression expression) {
+  private Equation(Expression expression) {
     this.expression = expression;
   }
 

@@ -1,19 +1,29 @@
 package app.closer.testapp.data;
 
 import java.util.UUID;
-import lombok.Data;
 import org.springframework.validation.annotation.Validated;
 
-@Data
 @Validated
 public final class Expression {
 
   private final String body;
   private final UUID expressionUUID;
 
-  public Expression(String body) {
+  private Expression(String body) {
     this.expressionUUID = UUID.randomUUID();
     this.body = body;
+  }
+
+  public static Expression from(String expression) {
+    return new Expression(expression);
+  }
+
+  public String getBody() {
+    return body;
+  }
+
+  public UUID getExpressionUUID() {
+    return expressionUUID;
   }
 
   @Override

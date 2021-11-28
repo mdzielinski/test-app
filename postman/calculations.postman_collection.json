@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "198b45a7-27fe-4ff7-96ea-9d5f4bd693f0",
+		"_postman_id": "7de6ec9e-3202-49da-84d6-30ad4b783404",
 		"name": "calculations",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -90,18 +90,18 @@
 			"response": []
 		},
 		{
-			"name": "(2+2*2)=6",
+			"name": "(2+2a*2)=validation errod",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {",
-							"    pm.response.to.have.status(200);",
+							"    pm.response.to.have.status(400);",
 							"});",
 							"",
 							"pm.test(\"Body matches string\", function () {",
-							"    pm.expect(pm.response.text()).equals(\"6\");",
+							"    pm.expect(pm.response.text()).equals(\"validation error\");",
 							"});"
 						],
 						"type": "text/javascript"
@@ -119,20 +119,20 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "{{host}}/evaluate/(2+2*2)",
+					"raw": "{{host}}/evaluate/(2+2a*2)",
 					"host": [
 						"{{host}}"
 					],
 					"path": [
 						"evaluate",
-						"(2+2*2)"
+						"(2+2a*2)"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "(2+2*(2)=validation errod",
+			"name": "blank",
 			"event": [
 				{
 					"listen": "test",
@@ -161,13 +161,116 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "{{host}}/evaluate/(2+2*(2)",
+					"raw": "{{host}}/evaluate/1231+-23*/342342(r123 () ",
 					"host": [
 						"{{host}}"
 					],
 					"path": [
 						"evaluate",
-						"(2+2*(2)"
+						"1231+-23*",
+						"342342(r123 () "
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "(2+2*2)=6",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).equals(\"6\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "\"(2+2*2)\""
+				},
+				"url": {
+					"raw": "{{host}}/evaluate",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"evaluate"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": null,
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "(2+2a*2)=validatoin error",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});",
+							"",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).equals(\"validation error\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "\"(2+2a*2)\""
+				},
+				"url": {
+					"raw": "{{host}}/evaluate",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"evaluate"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": null,
+							"disabled": true
+						}
 					]
 				}
 			},

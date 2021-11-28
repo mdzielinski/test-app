@@ -39,13 +39,13 @@ class SimpleCalculatorTest {
   @MethodSource("PositiveAndNegativeValues")
   void should_add_positive_and_negative_values(String expression, String result) {
 
-    assertEquals(calculator.calculate(new Expression(expression)).toString(), result);
+    assertEquals(calculator.calculate(Expression.from(expression)).toString(), result);
   }
 
   @ParameterizedTest
   @MethodSource("PositiveAndNegativeValues")
   void should_multiply(String expression, String result) {
 
-    assertEquals(calculator.calculate(new Expression(expression)).toString(), result);
+    assertEquals(calculator.calculate(Expression.from(expression)).toString(), result);
   }
 }

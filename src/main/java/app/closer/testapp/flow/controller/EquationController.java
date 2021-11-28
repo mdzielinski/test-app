@@ -23,7 +23,7 @@ public class EquationController {
 
   @GetMapping("/evaluate/**")
   public String calculate(@BasicExpression HttpServletRequest request) {
-    Expression expression = new Expression(FormulaExtractor.extractFrom(request));
+    Expression expression = Expression.from(FormulaExtractor.extractFrom(request));
     log.info("UUID: {}, expression: {}", expression.getExpressionUUID(), expression);
     return calculator.calculate(expression).get().toString();
   }
