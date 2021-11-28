@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 @Profile("dummy")
 public class DummyCalculator implements ICalculator {
 
-  public Result calculate(Expression expression) {
+  public Result evaluate(Expression expression) {
     Result result;
     result = switch (expression.getBody()) {
       case "(2+2)*2" -> Result.of(8);

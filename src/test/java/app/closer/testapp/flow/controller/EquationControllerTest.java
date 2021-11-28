@@ -41,7 +41,7 @@ public class EquationControllerTest {
     var result = Result.of(0.86864832559);
 
     ArgumentCaptor<Expression> expressionArgumentCaptor = ArgumentCaptor.forClass(Expression.class);
-    when(calculator.calculate(expressionArgumentCaptor.capture())).thenReturn(result);
+    when(calculator.evaluate(expressionArgumentCaptor.capture())).thenReturn(result);
 
     var mvcResult =
         mockMvc
@@ -59,7 +59,7 @@ public class EquationControllerTest {
     var result = Result.of(0.86864832559);
 
     ArgumentCaptor<Expression> expressionArgumentCaptor = ArgumentCaptor.forClass(Expression.class);
-    when(calculator.calculate(expressionArgumentCaptor.capture())).thenReturn(result);
+    when(calculator.evaluate(expressionArgumentCaptor.capture())).thenReturn(result);
 
     var mvcResult =
         mockMvc

@@ -20,7 +20,7 @@ class SimpleCalculatorTest {
     @MethodSource("positiveAndNegativeValues")
     void should_add(String expression, String result) {
 
-      assertEquals(calculator.calculate(Expression.from(expression)).toString(), result);
+      assertEquals(calculator.evaluate(Expression.from(expression)).toString(), result);
     }
 
     static Stream<Arguments> positiveAndNegativeValues() {
@@ -38,7 +38,7 @@ class SimpleCalculatorTest {
     @MethodSource("basicMultiplication")
     void should_multiply(String expression, String result) {
 
-      assertEquals(calculator.calculate(Expression.from(expression)).toString(), result);
+      assertEquals(calculator.evaluate(Expression.from(expression)).toString(), result);
     }
 
     static Stream<Arguments> basicMultiplication() {
@@ -57,7 +57,7 @@ class SimpleCalculatorTest {
     @MethodSource("simpleBracketsUsage")
     void should_consider_brackets(String expression, String result) {
 
-      assertEquals(calculator.calculate(Expression.from(expression)).toString(), result);
+      assertEquals(calculator.evaluate(Expression.from(expression)).toString(), result);
     }
 
     static Stream<Arguments> simpleBracketsUsage() {

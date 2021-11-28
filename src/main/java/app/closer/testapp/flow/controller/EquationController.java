@@ -25,12 +25,12 @@ public class EquationController {
   public String calculate(@BasicExpression HttpServletRequest request) {
     Expression expression = Expression.from(FormulaExtractor.extractFrom(request));
     log.info("UUID: {}, expression: {}", expression.getExpressionUUID(), expression);
-    return calculator.calculate(expression).get().toString();
+    return calculator.evaluate(expression).get().toString();
   }
 
   @PostMapping("/evaluate")
   public String calculate(@RequestBody @BasicExpression Expression expression) {
     log.info("UUID: {}, expression: {}", expression.getExpressionUUID(), expression);
-    return calculator.calculate(expression).get().toString();
+    return calculator.evaluate(expression).get().toString();
   }
 }

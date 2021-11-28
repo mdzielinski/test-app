@@ -11,13 +11,9 @@ import org.springframework.stereotype.Service;
 @Profile("!dummy")
 public class SimpleCalculator implements ICalculator {
 
-  public Result calculate(Expression equation) {
+  public Result evaluate(Expression equation) {
     String result = null;
     log.debug("calculated result: " + result);
     return evaluate(equation);
-  }
-
-  private Result evaluate(Expression equation) {
-    return null;
   }
 }
