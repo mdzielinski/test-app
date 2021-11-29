@@ -7,6 +7,6 @@ import lombok.experimental.UtilityClass;
 public class FormulaExtractor {
 
   public static String extractFrom(HttpServletRequest request) {
-    return request.getRequestURI().replaceAll("[a-z/]+/", "");
+    return request.getRequestURI().replaceAll("[A-za-z/]+/", "");
   }
 }

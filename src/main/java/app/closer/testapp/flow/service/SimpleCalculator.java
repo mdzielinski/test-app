@@ -1,6 +1,6 @@
 package app.closer.testapp.flow.service;
 
-import app.closer.testapp.data.Expression;
+import app.closer.testapp.data.Formula;
 import app.closer.testapp.data.Result;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Profile;
@@ -11,9 +11,18 @@ import org.springframework.stereotype.Service;
 @Profile("!dummy")
 public class SimpleCalculator implements ICalculator {
 
-  public Result evaluate(Expression equation) {
-    String result = null;
-    log.debug("calculated result: " + result);
-    return evaluate(equation);
+  public static final char ADD = '+';
+  public static final char SUB = '-';
+  public static final char MUL = '*';
+  public static final char DIV = '/';
+
+  public Result evaluate(Formula formula) {
+    var i = countOperators(formula);
+    System.out.println(i);
+    return Result.of(0);
+  }
+
+  private int countOperators(Formula formula) {
+    return formula.getBody().replaceAll("[^+\\-*/]", "").length();
   }
 }

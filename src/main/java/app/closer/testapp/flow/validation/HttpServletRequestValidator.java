@@ -8,13 +8,13 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class HttpServletRequestValidator
-    implements ConstraintValidator<BasicExpression, HttpServletRequest> {
+    implements ConstraintValidator<BasicFormula, HttpServletRequest> {
 
   @Override
   public boolean isValid(
       HttpServletRequest request, ConstraintValidatorContext constraintValidatorContext) {
-    String expression = FormulaExtractor.extractFrom(request);
-    log.debug("validating expression: \"{}\"", expression);
-    return BasicExpressionValidator.isValid(expression);
+    String formula = FormulaExtractor.extractFrom(request);
+    log.debug("validating formula: \"{}\"", formula);
+    return BasicFormulaValidator.isValid(formula);
   }
 }

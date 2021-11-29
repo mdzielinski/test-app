@@ -1,6 +1,6 @@
 package app.closer.testapp.flow.service;
 
-import app.closer.testapp.data.Expression;
+import app.closer.testapp.data.Formula;
 import app.closer.testapp.data.Result;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Profile;
@@ -11,9 +11,9 @@ import org.springframework.stereotype.Service;
 @Profile("dummy")
 public class DummyCalculator implements ICalculator {
 
-  public Result evaluate(Expression expression) {
+  public Result evaluate(Formula formula) {
     Result result;
-    result = switch (expression.getBody()) {
+    result = switch (formula.getBody()) {
       case "(2+2)*2" -> Result.of(8);
       case "2+2*2" -> Result.of(6);
       default -> Result.of(0);
