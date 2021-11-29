@@ -1,5 +1,7 @@
 package app.closer.testapp.data;
 
+import app.closer.testapp.flow.service.ICalculator;
+import app.closer.testapp.util.BeanUtil;
 import java.util.UUID;
 import javax.validation.constraints.NotNull;
 import org.springframework.validation.annotation.Validated;
@@ -14,13 +16,10 @@ public final class Equation {
     return new Equation(formula);
   }
 
-  public String pretty() {
-    return "Equation UUID: "
-        + formula.getUuid()
-        + " , formula: "
-        + formula
-        + " = "
-        + (result == null ? "<not obtained yet>" : result.toString());
+  public Equation resolve() {
+    ICalculator calculator = BeanUtil.getBean(ICalculator.class);
+    this.result = calculator.evaluate(formula);
+    return this;
   }
 
   private Equation(Formula formula) {

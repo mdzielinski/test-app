@@ -1,5 +1,6 @@
 package app.closer.testapp.flow.controller;
 
+import app.closer.testapp.data.Equation;
 import app.closer.testapp.data.Formula;
 import app.closer.testapp.flow.service.ICalculator;
 import app.closer.testapp.flow.validation.BasicFormula;
@@ -25,12 +26,12 @@ public class FormulaController {
   public String calculate(@BasicFormula HttpServletRequest request) {
     Formula formula = Formula.from(FormulaExtractor.extractFrom(request));
     log.info("UUID: {}, formula: {}", formula.getUuid(), formula);
-    return calculator.evaluate(formula).toString();
+    return Equation.from(formula).resolve().getResult().toString();
   }
 
   @PostMapping("/evaluate")
   public String calculate(@RequestBody @BasicFormula Formula formula) {
     log.info("UUID: {}, formula: {}", formula.getUuid(), formula);
-    return calculator.evaluate(formula).toString();
+    return Equation.from(formula).resolve().getResult().toString();
   }
 }
