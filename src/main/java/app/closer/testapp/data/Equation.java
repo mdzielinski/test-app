@@ -2,22 +2,16 @@ package app.closer.testapp.data;
 
 import java.util.UUID;
 import javax.validation.constraints.NotNull;
-import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.validation.annotation.Validated;
 
-@Configurable
 @Validated
 public final class Equation {
 
   @NotNull private final Formula formula;
   private Result result;
 
-  private Equation(Formula formula) {
-    this.formula = formula;
-  }
-
-  public UUID getEquationUUID() {
-    return formula.getUuid();
+  public static Equation from(Formula formula) {
+    return new Equation(formula);
   }
 
   public String pretty() {
@@ -27,5 +21,17 @@ public final class Equation {
         + formula
         + " = "
         + (result == null ? "<not obtained yet>" : result.toString());
+  }
+
+  private Equation(Formula formula) {
+    this.formula = formula;
+  }
+
+  public UUID getEquationUUID() {
+    return formula.getUuid();
+  }
+
+  public Result getResult() {
+    return this.result;
   }
 }

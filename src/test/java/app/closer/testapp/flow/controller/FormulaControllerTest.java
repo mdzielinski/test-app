@@ -19,38 +19,15 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-public class FromulaControllerTest {
+public class FormulaControllerTest {
 
   private ICalculator calculator;
-  private FromulaController controller;
+  private FormulaController controller;
   private MockMvc mockMvc;
-
-  public FromulaControllerTest() {
-    calculator = Mockito.mock(ICalculator.class);
-    controller = new FromulaController(calculator);
-  }
 
   @BeforeEach
   public void setUp() {
     this.mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
-  }
-
-  @Test
-  public void should_pass_formula_in_path_and_return_result() throws Exception {
-    var formula = "0+1-2*3/(45,6789)";
-    var result = Result.of(0.86864832559);
-
-    ArgumentCaptor<Formula> formulaCaptor = ArgumentCaptor.forClass(Formula.class);
-    when(calculator.evaluate(formulaCaptor.capture())).thenReturn(result);
-
-    var mvcResult =
-        mockMvc
-            .perform(get("/evaluate/" + formula))
-            .andExpect(MockMvcResultMatchers.status().is(HttpStatus.OK.value()))
-            .andReturn();
-
-    assertEquals(mvcResult.getResponse().getContentAsString(), result.toString());
-    assertEquals(formulaCaptor.getValue().getBody(), formula);
   }
 
   @Test
@@ -72,5 +49,28 @@ public class FromulaControllerTest {
 
     assertEquals(mvcResult.getResponse().getContentAsString(), result.toString());
     assertEquals(formulaCaptor.getValue().getBody(), formula);
+  }
+
+  @Test
+  public void should_pass_formula_in_path_and_return_result() throws Exception {
+    var formula = "0+1-2*3/(45,6789)";
+    var result = Result.of(0.86864832559);
+
+    ArgumentCaptor<Formula> formulaCaptor = ArgumentCaptor.forClass(Formula.class);
+    when(calculator.evaluate(formulaCaptor.capture())).thenReturn(result);
+
+    var mvcResult =
+        mockMvc
+            .perform(get("/evaluate/" + formula))
+            .andExpect(MockMvcResultMatchers.status().is(HttpStatus.OK.value()))
+            .andReturn();
+
+    assertEquals(mvcResult.getResponse().getContentAsString(), result.toString());
+    assertEquals(formulaCaptor.getValue().getBody(), formula);
+  }
+
+  public FormulaControllerTest() {
+    calculator = Mockito.mock(ICalculator.class);
+    controller = new FormulaController(calculator);
   }
 }

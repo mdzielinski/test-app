@@ -6,20 +6,16 @@ public final class Result {
 
   private final BigDecimal body;
 
-  private Result(BigDecimal body) {
-    this.body = body;
-  }
-
-  public static Result of(BigDecimal val) {
-    return new Result(val);
+  public BigDecimal get() {
+    return this.body;
   }
 
   public static Result of(double val) {
     return new Result(BigDecimal.valueOf(val));
   }
 
-  public BigDecimal get() {
-    return this.body;
+  private Result(BigDecimal body) {
+    this.body = body;
   }
 
   @Override

@@ -18,7 +18,6 @@ public class SimpleCalculator implements ICalculator {
 
   public Result evaluate(Formula formula) {
     var i = countOperators(formula);
-    System.out.println(i);
     return Result.of(0);
   }
 

@@ -9,6 +9,10 @@ public final class Formula {
   private final String body;
   private final UUID uuid;
 
+  public static Formula from(String formula) {
+    return new Formula(formula);
+  }
+
   private Formula(String body) {
     this.uuid = UUID.randomUUID();
     this.body = sanitize(body);
@@ -22,8 +26,9 @@ public final class Formula {
     return s.replaceAll("%20", "");
   }
 
-  public static Formula from(String formula) {
-    return new Formula(formula);
+  @Override
+  public String toString() {
+    return "\"" + body + "\"";
   }
 
   public String getBody() {
@@ -32,10 +37,5 @@ public final class Formula {
 
   public UUID getUuid() {
     return uuid;
-  }
-
-  @Override
-  public String toString() {
-    return "\"" + body + "\"";
   }
 }

@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 @AllArgsConstructor
 @Validated
 @Slf4j
-public class FromulaController {
+public class FormulaController {
 
   private ICalculator calculator;
 
@@ -25,12 +25,12 @@ public class FromulaController {
   public String calculate(@BasicFormula HttpServletRequest request) {
     Formula formula = Formula.from(FormulaExtractor.extractFrom(request));
     log.info("UUID: {}, formula: {}", formula.getUuid(), formula);
-    return calculator.evaluate(formula).get().toString();
+    return calculator.evaluate(formula).toString();
   }
 
   @PostMapping("/evaluate")
   public String calculate(@RequestBody @BasicFormula Formula formula) {
     log.info("UUID: {}, formula: {}", formula.getUuid(), formula);
-    return calculator.evaluate(formula).get().toString();
+    return calculator.evaluate(formula).toString();
   }
 }
