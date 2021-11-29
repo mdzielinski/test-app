@@ -5,16 +5,13 @@ import app.closer.testapp.data.Result;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
+import org.springframework.web.context.annotation.RequestScope;
 
 @Slf4j
 @Service
+@RequestScope
 @Profile("!dummy")
 public class SimpleCalculator implements ICalculator {
-
-  public static final char ADD = '+';
-  public static final char SUB = '-';
-  public static final char MUL = '*';
-  public static final char DIV = '/';
 
   public Result evaluate(Formula formula) {
     var i = countOperators(formula);

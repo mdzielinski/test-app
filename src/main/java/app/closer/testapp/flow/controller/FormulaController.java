@@ -26,12 +26,12 @@ public class FormulaController {
   public String calculate(@BasicFormula HttpServletRequest request) {
     Formula formula = Formula.from(FormulaExtractor.extractFrom(request));
     log.info("UUID: {}, formula: {}", formula.getUuid(), formula);
-    return Equation.from(formula).resolve().getResult().toString();
+    return Equation.from(formula).resolve(calculator).getResult().toString();
   }
 
   @PostMapping("/evaluate")
   public String calculate(@RequestBody @BasicFormula Formula formula) {
     log.info("UUID: {}, formula: {}", formula.getUuid(), formula);
-    return Equation.from(formula).resolve().getResult().toString();
+    return Equation.from(formula).resolve(calculator).getResult().toString();
   }
 }
