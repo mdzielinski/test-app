@@ -10,6 +10,10 @@ public final class Result {
     return this.body;
   }
 
+  public static Result of(BigDecimal val) {
+    return new Result(val);
+  }
+
   public static Result of(double val) {
     return new Result(BigDecimal.valueOf(val));
   }
