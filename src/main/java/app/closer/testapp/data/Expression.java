@@ -11,13 +11,19 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class Expression {
 
+  private final int order;
   private final Expression lhs;
   private final Operation operation;
   private final Expression rhs;
   private BigDecimal value;
 
   public Expression(String expression) {
+    this(expression, 0);
+  }
+
+  Expression(String expression, int order) {
     log.debug("parsing expression: {}", expression);
+    this.order = order;
     if (expressionIsASingleValue(expression)) {
       lhs = null;
       rhs = null;
@@ -73,11 +79,7 @@ public class Expression {
       value = operation.function.apply(lhs.evaluate(), rhs.evaluate());
 
     } catch (ArithmeticException e) {
-      log.error(
-          "Dividing by zero: operand left: {}, operator: {}, operand right {}",
-          lhs,
-          operation,
-          rhs);
+      log.error("following expression throw Arithmetic exception: {} {} {}", lhs, operation, rhs);
       throw e;
     }
     log.debug("EVALUATED expression: {} = {}", this, value);
