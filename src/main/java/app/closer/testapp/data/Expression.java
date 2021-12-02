@@ -1,5 +1,7 @@
 package app.closer.testapp.data;
 
+import static app.closer.testapp.data.symbol.Bracket.ALLOWED_BRACKET_SYMBOLS;
+import static app.closer.testapp.data.symbol.Operator.ALLOWED_OPERATOR_SYMBOLS;
 import static app.closer.testapp.data.symbol.SymbolFactory.symbolFrom;
 
 import app.closer.testapp.data.symbol.Bracket;
@@ -26,16 +28,29 @@ public class Expression {
 
   private ConcurrentLinkedQueue<Symbol> tokenize(String expression) {
     ConcurrentLinkedQueue<Symbol> symbols = new ConcurrentLinkedQueue<>();
-    var tokenizer =
-        new StringTokenizer(
-            expression, Bracket.ALLOWED_BRACKET_SYMBOLS + Operator.ALLOWED_OPERATOR_SYMBOLS, true);
-    int priorityCounter = 0;
+    var tokenizer = new StringTokenizer(expression, deliminatorsOfBracketsAndOperators(), true);
+
+    int currentPriority = 0;
     while (tokenizer.hasMoreTokens()) {
       var symbol = symbolFrom(tokenizer.nextToken());
-      System.out.println(symbol.getClass() + symbol.toString());
+      var aClass = symbol.getClass();
+
+      if (Bracket.class.equals(aClass)) {
+        currentPriority += ((Bracket) symbol).isOpening() ? 10 : (-10);
+      }
+
+      if (Operator.class.equals(aClass)) {
+        ((Operator) symbol).changePriorityBy(currentPriority);
+      }
+
       symbols.add(symbol);
     }
+    System.out.println(symbols);
     return symbols;
+  }
+
+  private static String deliminatorsOfBracketsAndOperators() {
+    return ALLOWED_BRACKET_SYMBOLS + ALLOWED_OPERATOR_SYMBOLS;
   }
 
   @Override

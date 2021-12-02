@@ -1,6 +1,7 @@
 package app.closer.testapp.data.symbol;
 
-import java.util.regex.Pattern;
+import static app.closer.testapp.util.RegexHelper.doPatternMatch;
+
 import lombok.Getter;
 
 @Getter
@@ -11,21 +12,25 @@ public final class Operator extends Symbol {
   private final Character body;
   private int priority;
 
+  public void changePriorityBy(int change) {
+    priority += change;
+  }
+
   public static Operator form(String symbol) {
     return new Operator(symbol.charAt(0));
   }
 
   private Operator(Character body) {
     this.body = body;
-    priority = doesBodyMatchPattern(body, priority_operators) ? 1 : 0;
+    priority = isPriorityOperator(body) ? 1 : 0;
   }
 
-  private boolean doesBodyMatchPattern(Character body, String pattern) {
-    return Pattern.compile(pattern).matcher(body.toString()).matches();
+  private boolean isPriorityOperator(Character body) {
+    return doPatternMatch(priority_operators, body.toString());
   }
 
   @Override
   public String toString() {
-    return body.toString();
+    return body.toString() + ":" + priority;
   }
 }
