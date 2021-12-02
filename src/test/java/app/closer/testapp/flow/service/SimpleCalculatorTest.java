@@ -79,6 +79,24 @@ class SimpleCalculatorTest {
   }
 
   @Nested
+  class basic_dividing {
+    static Stream<Arguments> basicDividing() {
+      return Stream.of(
+          arguments("1/1", "1.0"),
+          arguments("1/2", "0.5"),
+          arguments("1/4", "0.25"),
+          arguments("1/10", "0.1"),
+          arguments("11/10", "1.1"));
+    }
+
+    @ParameterizedTest
+    @MethodSource("basicDividing")
+    void should_multiply(String formula, String result) {
+      assertEquals(result, calculator.evaluate(Formula.from(formula)).toString());
+    }
+  }
+
+  @Nested
   class basic_brackets {
     static Stream<Arguments> simpleBracketsUsage() {
       return Stream.of(
