@@ -1,5 +1,6 @@
 package app.closer.testapp.flow.controller;
 
+import app.closer.testapp.dataflow.ExpressionParsingException;
 import javax.validation.ConstraintViolationException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -12,7 +13,11 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 @ControllerAdvice
 class ValidationExceptionHandler {
 
-  @ExceptionHandler({ConstraintViolationException.class, MethodArgumentNotValidException.class})
+  @ExceptionHandler({
+    ConstraintViolationException.class,
+    MethodArgumentNotValidException.class,
+    ExpressionParsingException.class
+  })
   public ResponseEntity<String> handleConstraintViolationException(Exception e) {
     ResponseEntity<String> response =
         ResponseEntity.status(HttpStatus.BAD_REQUEST).body("validation error");

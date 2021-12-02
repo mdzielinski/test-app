@@ -14,15 +14,15 @@ public final class Formula {
   }
 
   private Formula(String body) {
-    this.uuid = UUID.randomUUID();
+    this.uuid = UUID.fromString(body);
     this.body = sanitize(body);
   }
 
   private static String sanitize(String body) {
-    return removeWhitespaceCodes(body);
+    return removeURLWhitespaceCodes(body);
   }
 
-  private static String removeWhitespaceCodes(String s) {
+  private static String removeURLWhitespaceCodes(String s) {
     return s.replaceAll("%20", "");
   }
 
