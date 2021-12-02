@@ -15,9 +15,7 @@ import org.springframework.web.context.annotation.RequestScope;
 public class SimpleCalculator implements ICalculator {
   public static final String SYMBOLS_REGEX = "[+\\-*/]";
 
-
   public Result evaluate(Formula formula) {
     return Result.of(new Expression(formula.getBody()).evaluate());
   }
-
 }

@@ -1,4 +1,4 @@
-package app.closer.testapp.data.symbol;
+package app.closer.testapp.flow.service;
 
 import app.closer.testapp.dataflow.ExpressionParsingException;
 import java.math.BigDecimal;
@@ -25,6 +25,14 @@ public enum Operation {
     };
   }
 
+  public void priority(int increment){
+    this.priority += increment;
+  }
+
+  public int priority() {
+    return this.priority;
+  }
+
   Operation(BiFunction<BigDecimal, BigDecimal, BigDecimal> function, char symbol, int priority) {
     this.symbol = symbol;
   }
@@ -32,13 +40,5 @@ public enum Operation {
   @Override
   public String toString() {
     return String.valueOf(symbol);
-  }
-
-  public void priority(int increment){
-    this.priority += increment;
-  }
-
-  public int priority() {
-    return this.priority;
   }
 }

@@ -14,7 +14,6 @@ public class Expression {
   }
 
   private LinkedList<Symbol> tokenize(String expression) {
-    return null;//todo
+    return null; // todo
   }
-
 }
