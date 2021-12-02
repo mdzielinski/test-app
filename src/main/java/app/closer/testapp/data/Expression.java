@@ -7,6 +7,7 @@ import static app.closer.testapp.data.symbol.SymbolFactory.symbolFrom;
 import app.closer.testapp.data.symbol.Bracket;
 import app.closer.testapp.data.symbol.Operator;
 import app.closer.testapp.data.symbol.Symbol;
+import app.closer.testapp.dataflow.ExpressionParsingException;
 import java.util.StringTokenizer;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import lombok.Getter;
@@ -36,21 +37,34 @@ public class Expression {
       var aClass = symbol.getClass();
 
       if (Bracket.class.equals(aClass)) {
-        currentPriority += ((Bracket) symbol).isOpening() ? 10 : (-10);
+        currentPriority += obtainPriority(symbol);
       }
 
       if (Operator.class.equals(aClass)) {
-        ((Operator) symbol).changePriorityBy(currentPriority);
+        update(symbol, currentPriority);
       }
 
       symbols.add(symbol);
     }
+    ifBracketsMalformedThrow(currentPriority);
     System.out.println(symbols);
     return symbols;
   }
 
   private static String deliminatorsOfBracketsAndOperators() {
     return ALLOWED_BRACKET_SYMBOLS + ALLOWED_OPERATOR_SYMBOLS;
+  }
+
+  private int obtainPriority(Symbol symbol) {
+    return ((Bracket) symbol).isOpening() ? 10 : (-10);
+  }
+
+  private void update(Symbol symbol, int currentPriority) {
+    ((Operator) symbol).changePriorityBy(currentPriority);
+  }
+
+  private void ifBracketsMalformedThrow(int currentPriority) {
+    if (currentPriority != 0) throw new ExpressionParsingException("Brackets malformed!");
   }
 
   @Override
