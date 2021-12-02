@@ -14,4 +14,9 @@ public final class Number extends Symbol {
   private Number(String symbol) {
     this.body = Double.parseDouble(symbol);
   }
+
+  @Override
+  public String toString() {
+    return body.toString();
+  }
 }

@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="Application" type="Application" factoryName="Application" nameIsGenerated="true">
+  <configuration default="false" name="dummy" type="Application" factoryName="Application">
     <option name="MAIN_CLASS_NAME" value="app.closer.testapp.Application" />
     <module name="test-app" />
     <option name="VM_PARAMETERS" value="-Dspring.profiles.active=dummy" />

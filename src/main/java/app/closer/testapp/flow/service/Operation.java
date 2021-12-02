@@ -1,19 +1,18 @@
 package app.closer.testapp.flow.service;
 
 import app.closer.testapp.dataflow.ExpressionParsingException;
-import java.math.BigDecimal;
 import java.util.function.BiFunction;
 
 public enum Operation {
-  ADD(BigDecimal::add, '+', 0),
-  SUBTRACT(BigDecimal::subtract, '-', 0),
-  MULTIPLY(BigDecimal::multiply, '*', 1),
-  DIVIDE(BigDecimal::divide, '/', 1);
+  ADD((l, r) -> l + r, '+'),
+  SUBTRACT((l, r) -> l - r, '-'),
+  MULTIPLY((l, r) -> l * r, '*'),
+  DIVIDE((l, r) -> l / r, '/');
 
   //todo should have single source of truth
   public static final String ALLOWED_OPERATOR_SYMBOLS = "+-*/";
   private final char symbol;
-  private int priority;
+  private final BiFunction<Double, Double, Double> function;
 
   public static Operation from(char symbol) {
     return switch (symbol) {
@@ -25,16 +24,9 @@ public enum Operation {
     };
   }
 
-  public void priority(int increment){
-    this.priority += increment;
-  }
-
-  public int priority() {
-    return this.priority;
-  }
-
-  Operation(BiFunction<BigDecimal, BigDecimal, BigDecimal> function, char symbol, int priority) {
+  Operation(BiFunction<Double, Double, Double> function, char symbol) {
     this.symbol = symbol;
+    this.function = function;
   }
 
   @Override

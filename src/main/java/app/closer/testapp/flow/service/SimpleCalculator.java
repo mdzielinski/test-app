@@ -13,13 +13,12 @@ import org.springframework.web.context.annotation.RequestScope;
 @RequestScope
 @Profile("!dummy")
 public class SimpleCalculator implements ICalculator {
-  public static final String SYMBOLS_REGEX = "[+\\-*/]";
 
   public Result evaluate(Formula formula) {
     return calculate(Expression.from(formula));
   }
 
   private Result calculate(Expression expression) {
-    return null;
+    return Result.of(0);
   }
 }

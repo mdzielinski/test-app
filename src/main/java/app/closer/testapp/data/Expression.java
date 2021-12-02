@@ -29,8 +29,11 @@ public class Expression {
     var tokenizer =
         new StringTokenizer(
             expression, Bracket.ALLOWED_BRACKET_SYMBOLS + Operator.ALLOWED_OPERATOR_SYMBOLS, true);
+    int priorityCounter = 0;
     while (tokenizer.hasMoreTokens()) {
-      symbols.add(symbolFrom(tokenizer.nextToken()));
+      var symbol = symbolFrom(tokenizer.nextToken());
+      System.out.println(symbol.getClass() + symbol.toString());
+      symbols.add(symbol);
     }
     return symbols;
   }
