@@ -1,5 +1,6 @@
 package app.closer.testapp.data;
 
+import java.nio.charset.StandardCharsets;
 import java.util.UUID;
 import org.springframework.validation.annotation.Validated;
 
@@ -14,7 +15,7 @@ public final class Formula {
   }
 
   private Formula(String body) {
-    this.uuid = UUID.fromString(body);
+    this.uuid = UUID.nameUUIDFromBytes(body.getBytes(StandardCharsets.UTF_8));
     this.body = sanitize(body);
   }
 

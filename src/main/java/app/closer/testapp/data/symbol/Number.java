@@ -5,9 +5,13 @@ import lombok.Getter;
 @Getter
 public final class Number extends Symbol {
   public static final String ALLOWED_NUMBER_SYMBOLS = "0123456789";
-  private final Double number;
+  private final Double body;
 
-  public Number(String symbol) {
-    this.number = Double.parseDouble(symbol);
+  public static Number from(String symbol) {
+    return new Number(symbol);
+  }
+
+  private Number(String symbol) {
+    this.body = Double.parseDouble(symbol);
   }
 }

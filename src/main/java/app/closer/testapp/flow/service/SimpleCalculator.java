@@ -16,6 +16,10 @@ public class SimpleCalculator implements ICalculator {
   public static final String SYMBOLS_REGEX = "[+\\-*/]";
 
   public Result evaluate(Formula formula) {
-    return Result.of(new Expression(formula.getBody()).evaluate());
+    return calculate(Expression.from(formula));
+  }
+
+  private Result calculate(Expression expression) {
+    return null;
   }
 }
