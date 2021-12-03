@@ -6,10 +6,10 @@ import static app.closer.testapp.util.RegexHelper.doPatternMatch;
 
 public class SymbolFactory {
 
-  public static Symbol symbolFrom(String symbol) {
+  public static Symbol symbolFrom(String symbol, int order) {
 
     if (doPatternMatch(ALLOWED_BRACKET_SYMBOLS, symbol)) return Bracket.from(symbol);
-    if (doPatternMatch(ALLOWED_OPERATOR_SYMBOLS, symbol)) return Operator.form(symbol);
+    if (doPatternMatch(ALLOWED_OPERATOR_SYMBOLS, symbol)) return Operator.form(symbol, order);
     return Number.from(symbol);
   }
 }

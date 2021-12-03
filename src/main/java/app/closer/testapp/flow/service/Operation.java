@@ -29,6 +29,9 @@ public enum Operation {
     this.function = function;
   }
 
+  public Double resolve(Double lhs, Double rhs){
+    return this.function.apply(lhs, rhs);
+}
   @Override
   public String toString() {
     return String.valueOf(symbol);

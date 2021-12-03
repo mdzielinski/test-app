@@ -20,7 +20,7 @@ class SymbolTest {
     @ParameterizedTest
     @MethodSource("operators")
     void should_add(String symbol) {
-      assertEquals(symbol, symbolFrom(symbol).toString());
+      assertEquals(symbol, symbolFrom(symbol, 0).toString());
     }
   }
 
@@ -33,7 +33,7 @@ class SymbolTest {
     @ParameterizedTest
     @MethodSource("brackets")
     void should_add(String symbol) {
-      assertEquals(symbol, symbolFrom(symbol).toString());
+      assertEquals(symbol, symbolFrom(symbol, 0).toString());
     }
   }
 }
