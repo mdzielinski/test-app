@@ -1,7 +1,7 @@
 package app.closer.testapp.dataflow;
 
-import static app.closer.testapp.data.symbol.Bracket.ALLOWED_BRACKET_SYMBOLS;
-import static app.closer.testapp.data.symbol.Operator.ALLOWED_OPERATOR_SYMBOLS;
+import static app.closer.testapp.data.symbol.Symbol.ALLOWED_BRACKET_SYMBOLS;
+import static app.closer.testapp.data.symbol.Symbol.ALLOWED_OPERATOR_SYMBOLS;
 import static app.closer.testapp.data.symbol.SymbolFactory.symbolFrom;
 
 import app.closer.testapp.data.symbol.Bracket;
@@ -21,14 +21,6 @@ public final class Expression {
 
   public static Expression from(String expression) {
     return new Expression(parse(expression));
-  }
-
-  public Stream<Symbol> stream() {
-    return body.stream();
-  }
-
-  private Expression(LinkedList<Symbol> expression) {
-    this.body = expression;
   }
 
   private static LinkedList<Symbol> parse(String expression) {
@@ -76,5 +68,13 @@ public final class Expression {
 
   private static void throwException(String message) {
     throw new ExpressionParsingException(message);
+  }
+
+  public Stream<Symbol> stream() {
+    return body.stream();
+  }
+
+  private Expression(LinkedList<Symbol> expression) {
+    this.body = expression;
   }
 }

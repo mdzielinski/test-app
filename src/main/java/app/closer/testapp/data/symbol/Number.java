@@ -3,8 +3,8 @@ package app.closer.testapp.data.symbol;
 import lombok.Getter;
 
 @Getter
-public final class Number extends Symbol {
-  public static final String ALLOWED_NUMBER_SYMBOLS = "0123456789";
+public final class Number implements Symbol {
+
   private final Double body;
 
   public static Number from(Double number) {
@@ -21,6 +21,11 @@ public final class Number extends Symbol {
 
   public Number(Double number) {
     this.body = number;
+  }
+
+  @Override
+  public Double obtain() {
+    return null;
   }
 
   @Override

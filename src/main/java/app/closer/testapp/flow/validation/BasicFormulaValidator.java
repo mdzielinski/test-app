@@ -1,8 +1,8 @@
 package app.closer.testapp.flow.validation;
 
-import static app.closer.testapp.data.symbol.Bracket.ALLOWED_BRACKET_SYMBOLS;
-import static app.closer.testapp.data.symbol.Number.ALLOWED_NUMBER_SYMBOLS;
-import static app.closer.testapp.data.symbol.Operator.ALLOWED_OPERATOR_SYMBOLS;
+import static app.closer.testapp.data.symbol.Symbol.ALLOWED_BRACKET_SYMBOLS;
+import static app.closer.testapp.data.symbol.Symbol.ALLOWED_NUMBER_SYMBOLS;
+import static app.closer.testapp.data.symbol.Symbol.ALLOWED_OPERATOR_SYMBOLS;
 import static org.apache.logging.log4j.util.Strings.isBlank;
 
 import java.util.regex.Pattern;
@@ -13,11 +13,11 @@ interface BasicFormulaValidator {
   String ALLOWED_TECHNICAL_SYMBOLS = "%20";
 
   static boolean isValid(String formula) {
-    var regex = Pattern.compile(getWholeExpressionRegex(provideSymbols()));
+    var regex = Pattern.compile(wholeExpressionRegexFrom(provideSymbols()));
     return !isBlank(formula) && regex.matcher(formula).matches();
   }
 
-  private static String getWholeExpressionRegex(String content) {
+  private static String wholeExpressionRegexFrom(String content) {
     return "^[" + content + "]+$";
   }
 

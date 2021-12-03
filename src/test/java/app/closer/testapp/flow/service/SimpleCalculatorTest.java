@@ -1,9 +1,11 @@
 package app.closer.testapp.flow.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.params.provider.Arguments.arguments;
 
 import app.closer.testapp.data.Formula;
+import app.closer.testapp.dataflow.ExpressionParsingException;
 import java.util.stream.Stream;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
@@ -117,6 +119,42 @@ class SimpleCalculatorTest {
     @MethodSource("simpleBracketsUsage")
     void should_consider_brackets(String formula, String result) {
       assertEquals(result, calculator.evaluate(Formula.from(formula)).toString());
+    }
+  }
+
+  @Nested
+  class incorrect_expressions {
+    static Stream<Arguments> malformedBrackets() {
+      return Stream.of(
+          arguments("()(2+2)*2"),
+          arguments("2*(2(+)2)"),
+          arguments("0()+(2+2)*2+0"),
+          arguments("2(+2)*2"),
+          arguments("2*2+2"),
+          arguments("1+2(*2)+1"),
+          arguments("5*(5*(0)+)1"),
+          arguments("1+(5*0)*5()"),
+          arguments(")5*0*5+1("),
+          arguments(")(1+0*0*5"),
+          arguments("0)*0*(5"),
+          arguments("((1+0)*0*5"),
+          arguments("(1+0*0*5))"),
+          arguments("1+(0*0*5"),
+          arguments("1+0)*0*5"),
+          arguments("1+0*0*5"),
+          arguments("(1+0*0*5("),
+          arguments("(1+0*0*5"),
+          arguments("(1+0)*0*5"),
+          arguments("5+2*(3-2("));
+    }
+
+    @ParameterizedTest
+    @MethodSource("malformedBrackets")
+    void should_throw_because_brackets_malformed(String formula) {
+      assertThrows(
+          ExpressionParsingException.class,
+          () -> calculator.evaluate(Formula.from(formula)),
+          "123");
     }
   }
 }

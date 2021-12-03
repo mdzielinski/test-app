@@ -5,16 +5,15 @@ import static app.closer.testapp.util.RegexHelper.doPatternMatch;
 import lombok.Getter;
 
 @Getter
-public final class Operator extends Symbol {
-  public static final String ALLOWED_OPERATOR_SYMBOLS = "+\\-\\*/";
-  private static final String priority_operators = "\\*/";
-  private static final int PRIORITY_CHANGE_PER_LEVEL = 2;
+public final class Operator implements Symbol {
+
+  private static final int priority_change_per_level = 2;
   private final char body;
+  private final int order;
   private int priority;
-  private int order;
 
   public void changePriorityBy(int levels) {
-    priority += levels * PRIORITY_CHANGE_PER_LEVEL;
+    priority += levels * priority_change_per_level;
   }
 
   public static Operator form(String symbol, int order) {
@@ -28,11 +27,16 @@ public final class Operator extends Symbol {
   }
 
   private boolean isPriorityOperator(Character body) {
-    return doPatternMatch(priority_operators, body.toString());
+    return doPatternMatch(PRIORITY_OPERATOR_SYMBOLS, body.toString());
+  }
+
+  @Override
+  public Double obtain() {
+    return null;
   }
 
   @Override
   public String toString() {
-    return body + "<P:" + priority + "O:" + order + ">";
+    return body + "<P:" + priority + ";O:" + order + ">";
   }
 }
