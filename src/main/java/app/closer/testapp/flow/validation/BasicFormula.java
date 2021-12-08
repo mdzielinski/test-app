@@ -18,8 +18,8 @@ public @interface BasicFormula {
 
   String message() default
       "Invalid mathematical formula. Allowed set of symbols: "
-          + "\"1233456780+-/*(),.\" with respect to mathematical formula rules. Both comma \",\" "
-          + "and dot \".\" are considered proper decimal separators.";
+          + "\"1233456780+-/*(),.\" with respect to mathematical formula rules. "
+          + "The dot \".\" is considered proper decimal separator.";
 
   Class<? extends Payload>[] payload() default {};
 }

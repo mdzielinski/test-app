@@ -3,7 +3,7 @@ package app.closer.testapp.data.symbol;
 import lombok.Getter;
 
 @Getter
-public final class Number implements Symbol {
+public final class Number extends Symbol {
 
   private final Double body;
 
@@ -21,11 +21,6 @@ public final class Number implements Symbol {
 
   public Number(Double number) {
     this.body = number;
-  }
-
-  @Override
-  public Double obtain() {
-    return null;
   }
 
   @Override

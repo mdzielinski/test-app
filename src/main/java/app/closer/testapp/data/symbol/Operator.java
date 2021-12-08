@@ -1,42 +1,39 @@
 package app.closer.testapp.data.symbol;
 
-import static app.closer.testapp.util.RegexHelper.doPatternMatch;
+import static app.closer.testapp.util.RegexHelper.patternMatches;
 
 import lombok.Getter;
 
 @Getter
-public final class Operator implements Symbol {
+public final class Operator extends Symbol {
 
-  private static final int priority_change_per_level = 2;
+  private static final int priority_change_per_bracket = 2;
   private final char body;
   private final int order;
-  private int priority;
+  private final int priority;
 
-  public void changePriorityBy(int levels) {
-    priority += levels * priority_change_per_level;
+  public static Operator form(String symbol, int order, int priority) {
+    return new Operator(symbol.charAt(0), order, priority);
   }
 
-  public static Operator form(String symbol, int order) {
-    return new Operator(symbol.charAt(0), order);
-  }
-
-  private Operator(Character operator, int order) {
+  private Operator(Character operator, int order, int priorityByBrackets) {
     this.body = operator;
     this.order = order;
-    priority = isPriorityOperator(operator) ? 1 : 0;
+    var priorityByOperationType = hasPriority(operator) ? 1 : 0;
+    this.priority = priorityByOperationType + (priorityByBrackets * priority_change_per_bracket);
   }
 
-  private boolean isPriorityOperator(Character body) {
-    return doPatternMatch(PRIORITY_OPERATOR_SYMBOLS, body.toString());
+  private boolean hasPriority(Character body) {
+    return patternMatches(PRIORITY_OPERATOR_SYMBOLS, body.toString());
   }
 
   @Override
-  public Double obtain() {
-    return null;
+  public boolean equals(Object obj) {
+    return obj.toString().equals(String.valueOf(body));
   }
 
   @Override
   public String toString() {
-    return body + "<P:" + priority + ";O:" + order + ">";
+    return String.valueOf(body);
   }
 }

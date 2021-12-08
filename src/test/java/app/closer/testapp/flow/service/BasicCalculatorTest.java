@@ -1,11 +1,9 @@
 package app.closer.testapp.flow.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.params.provider.Arguments.arguments;
 
-import app.closer.testapp.data.Formula;
-import app.closer.testapp.dataflow.ExpressionParsingException;
+import app.closer.testapp.data.Expression;
 import java.util.stream.Stream;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
@@ -13,13 +11,13 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
-class SimpleCalculatorTest {
+class BasicCalculatorTest {
 
-  private SimpleCalculator calculator;
+  private BasicCalculator calculator;
 
   @BeforeEach
   void setUp() {
-    calculator = new SimpleCalculator();
+    calculator = new BasicCalculator();
   }
 
   @Nested
@@ -39,26 +37,49 @@ class SimpleCalculatorTest {
     @ParameterizedTest
     @MethodSource("positiveValuesInAdding")
     void should_add(String formula, String result) {
-      assertEquals(calculator.evaluate(Formula.from(formula)).toString(), result);
+      assertEquals(calculator.evaluate(Expression.from(formula)).toString(), result);
     }
   }
 
   @Nested
-  class advanced_adding {
+  class negative_values {
+    static Stream<Arguments> operationsOnNegativeValues() {
+      return Stream.of(
+          arguments("1+-0", "1.0"),
+          arguments("-1+-0", "-1.0"),
+          arguments("1+-1", "0.0"),
+          arguments("-1+-1", "-2.0"),
+          arguments("1*-1", "-1.0"),
+          arguments("1+1+-1", "1.0"),
+          arguments("-1+-1+-1", "-3.0"),
+          arguments("1+5/-1", "-6.0"),
+          arguments("-1+-5/-1", "6.0"),
+          arguments("1+5*-1", "-6.0"),
+          arguments("-1+-5*-1", "6.0"));
+    }
+
+    @ParameterizedTest
+    @MethodSource("operationsOnNegativeValues")
+    void should_perform_operations_on_negative_values(String formula, String result) {
+      assertEquals(calculator.evaluate(Expression.from(formula)).toString(), result);
+    }
+  }
+
+  @Nested
+  class adding_and_subtraction {
     static Stream<Arguments> negativeValuesInAdding() {
       return Stream.of(
           arguments("-1+1", "0.0"),
-          arguments("1+-1", "0.0"),
+          arguments("1-1", "0.0"),
           arguments("-1-1", "-2.0"),
-          arguments("-1+-1", "-2.0"),
-          arguments("0-1+1-2+-3+-5+8+13", "11.0"));
+          arguments("0-1+1-2-3-5+8+13", "11.0"));
     }
 
     @ParameterizedTest
     @MethodSource("negativeValuesInAdding")
     void should_add(String formula, String result) {
 
-      assertEquals(result, calculator.evaluate(Formula.from(formula)).toString());
+      assertEquals(result, calculator.evaluate(Expression.from(formula)).toString());
     }
   }
 
@@ -76,7 +97,7 @@ class SimpleCalculatorTest {
     @ParameterizedTest
     @MethodSource("basicMultiplication")
     void should_multiply(String formula, String result) {
-      assertEquals(result, calculator.evaluate(Formula.from(formula)).toString());
+      assertEquals(result, calculator.evaluate(Expression.from(formula)).toString());
     }
   }
 
@@ -94,7 +115,7 @@ class SimpleCalculatorTest {
     @ParameterizedTest
     @MethodSource("basicDividing")
     void should_multiply(String formula, String result) {
-      assertEquals(result, calculator.evaluate(Formula.from(formula)).toString());
+      assertEquals(result, calculator.evaluate(Expression.from(formula)).toString());
     }
   }
 
@@ -118,43 +139,7 @@ class SimpleCalculatorTest {
     @ParameterizedTest
     @MethodSource("simpleBracketsUsage")
     void should_consider_brackets(String formula, String result) {
-      assertEquals(result, calculator.evaluate(Formula.from(formula)).toString());
-    }
-  }
-
-  @Nested
-  class incorrect_expressions {
-    static Stream<Arguments> malformedBrackets() {
-      return Stream.of(
-          arguments("()(2+2)*2"),
-          arguments("2*(2(+)2)"),
-          arguments("0()+(2+2)*2+0"),
-          arguments("2(+2)*2"),
-          arguments("2*2+2"),
-          arguments("1+2(*2)+1"),
-          arguments("5*(5*(0)+)1"),
-          arguments("1+(5*0)*5()"),
-          arguments(")5*0*5+1("),
-          arguments(")(1+0*0*5"),
-          arguments("0)*0*(5"),
-          arguments("((1+0)*0*5"),
-          arguments("(1+0*0*5))"),
-          arguments("1+(0*0*5"),
-          arguments("1+0)*0*5"),
-          arguments("1+0*0*5"),
-          arguments("(1+0*0*5("),
-          arguments("(1+0*0*5"),
-          arguments("(1+0)*0*5"),
-          arguments("5+2*(3-2("));
-    }
-
-    @ParameterizedTest
-    @MethodSource("malformedBrackets")
-    void should_throw_because_brackets_malformed(String formula) {
-      assertThrows(
-          ExpressionParsingException.class,
-          () -> calculator.evaluate(Formula.from(formula)),
-          "123");
+      assertEquals(result, calculator.evaluate(Expression.from(formula)).toString());
     }
   }
 }

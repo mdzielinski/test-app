@@ -4,7 +4,7 @@ import java.util.regex.Pattern;
 
 public class RegexHelper {
 
-  public static boolean doPatternMatch(String regex, String word) {
+  public static boolean patternMatches(String regex, String word) {
     return Pattern.compile(RegexHelper.wordRegexOf(regex)).matcher(word).matches();
   }
 

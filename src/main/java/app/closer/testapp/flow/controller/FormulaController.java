@@ -1,6 +1,6 @@
 package app.closer.testapp.flow.controller;
 
-import app.closer.testapp.data.Formula;
+import app.closer.testapp.data.Expression;
 import app.closer.testapp.flow.service.ICalculator;
 import app.closer.testapp.flow.validation.BasicFormula;
 import app.closer.testapp.util.FormulaExtractor;
@@ -23,14 +23,14 @@ public class FormulaController {
 
   @GetMapping("/evaluate/**")
   public String calculate(@BasicFormula HttpServletRequest request) {
-    Formula formula = Formula.from(FormulaExtractor.extractFrom(request));
-    log.debug("UUID: {}, formula: {}", formula.getUuid(), formula);
-    return calculator.evaluate(formula).toString();
+    Expression expression = Expression.from(FormulaExtractor.extractFrom(request));
+    log.debug("UUID: {}, formula: {}", expression.getUuid(), expression);
+    return calculator.evaluate(expression).toString();
   }
 
   @PostMapping("/evaluate")
-  public String calculate(@RequestBody @BasicFormula Formula formula) {
-    log.debug("UUID: {}, formula: {}", formula.getUuid(), formula);
-    return calculator.evaluate(formula).toString();
+  public String calculate(@RequestBody @BasicFormula Expression expression) {
+    log.debug("UUID: {}, formula: {}", expression.getUuid(), expression);
+    return calculator.evaluate(expression).toString();
   }
 }

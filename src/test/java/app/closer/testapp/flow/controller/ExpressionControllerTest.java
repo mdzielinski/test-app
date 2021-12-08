@@ -6,7 +6,7 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 
-import app.closer.testapp.data.Formula;
+import app.closer.testapp.data.Expression;
 import app.closer.testapp.data.Result;
 import app.closer.testapp.flow.service.ICalculator;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -19,7 +19,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-public class FormulaControllerTest {
+public class ExpressionControllerTest {
 
   private ICalculator calculator;
   private FormulaController controller;
@@ -35,7 +35,7 @@ public class FormulaControllerTest {
     var formula = "0+1-2*3/(45,6789)";
     var result = Result.of(0.86864832559);
 
-    ArgumentCaptor<Formula> formulaCaptor = ArgumentCaptor.forClass(Formula.class);
+    ArgumentCaptor<Expression> formulaCaptor = ArgumentCaptor.forClass(Expression.class);
     when(calculator.evaluate(formulaCaptor.capture())).thenReturn(result);
 
     var mvcResult =
@@ -56,7 +56,7 @@ public class FormulaControllerTest {
     var formula = "0+1-2*3/(45,6789)";
     var result = Result.of(0.86864832559);
 
-    ArgumentCaptor<Formula> formulaCaptor = ArgumentCaptor.forClass(Formula.class);
+    ArgumentCaptor<Expression> formulaCaptor = ArgumentCaptor.forClass(Expression.class);
     when(calculator.evaluate(formulaCaptor.capture())).thenReturn(result);
 
     var mvcResult =
@@ -69,7 +69,7 @@ public class FormulaControllerTest {
     assertEquals(formulaCaptor.getValue().getBody(), formula);
   }
 
-  public FormulaControllerTest() {
+  public ExpressionControllerTest() {
     calculator = Mockito.mock(ICalculator.class);
     controller = new FormulaController(calculator);
   }

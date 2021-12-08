@@ -5,16 +5,16 @@ import java.util.UUID;
 import org.springframework.validation.annotation.Validated;
 
 @Validated
-public final class Formula {
+public final class Expression {
 
   private final String body;
   private final UUID uuid;
 
-  public static Formula from(String formula) {
-    return new Formula(formula);
+  public static Expression from(String formula) {
+    return new Expression(formula);
   }
 
-  private Formula(String body) {
+  private Expression(String body) {
     this.uuid = UUID.nameUUIDFromBytes(body.getBytes(StandardCharsets.UTF_8));
     this.body = sanitize(body);
   }

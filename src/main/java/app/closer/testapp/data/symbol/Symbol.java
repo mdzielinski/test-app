@@ -1,12 +1,9 @@
 package app.closer.testapp.data.symbol;
 
-public interface Symbol {
-
-  String ALLOWED_OPERATOR_SYMBOLS = "+\\-\\*/";
-  String PRIORITY_OPERATOR_SYMBOLS = "\\*/";
-  String ALLOWED_BRACKET_SYMBOLS = "()";
-  String opening_brackets = "(";
-  String ALLOWED_NUMBER_SYMBOLS = "0123456789";
-
-  Double obtain();
+public abstract class Symbol {
+  public static String OPERATOR_SYMBOLS = "+\\-\\*/";
+  public static String PRIORITY_OPERATOR_SYMBOLS = "\\*/";
+  public static String BRACKET_SYMBOLS = "()";
+  public static String OPENING_BRACKETS_SYMBOLS = "(";
+  public static String NUMBER_SYMBOLS = "0123456789\\.";
 }

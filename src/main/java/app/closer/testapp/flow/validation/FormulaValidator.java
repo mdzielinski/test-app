@@ -1,16 +1,16 @@
 package app.closer.testapp.flow.validation;
 
-import app.closer.testapp.data.Formula;
+import app.closer.testapp.data.Expression;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-public class FormulaValidator implements ConstraintValidator<BasicFormula, Formula> {
+public class FormulaValidator implements ConstraintValidator<BasicFormula, Expression> {
 
   @Override
-  public boolean isValid(Formula formula, ConstraintValidatorContext constraintValidatorContext) {
-    log.debug("validating formula: \"{}\"", formula);
-    return BasicFormulaValidator.isValid(formula.getBody());
+  public boolean isValid(Expression expression, ConstraintValidatorContext constraintValidatorContext) {
+    log.debug("validating formula: \"{}\"", expression);
+    return BasicFormulaValidator.isValid(expression.getBody());
   }
 }

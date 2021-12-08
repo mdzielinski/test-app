@@ -1,15 +1,15 @@
 package app.closer.testapp.data.symbol;
 
-import static app.closer.testapp.data.symbol.Symbol.ALLOWED_BRACKET_SYMBOLS;
-import static app.closer.testapp.data.symbol.Symbol.ALLOWED_OPERATOR_SYMBOLS;
-import static app.closer.testapp.util.RegexHelper.doPatternMatch;
+import static app.closer.testapp.data.symbol.Symbol.BRACKET_SYMBOLS;
+import static app.closer.testapp.data.symbol.Symbol.OPERATOR_SYMBOLS;
+import static app.closer.testapp.util.RegexHelper.patternMatches;
 
 public class SymbolFactory {
 
-  public static Symbol symbolFrom(String symbol, int order) {
+  public static Symbol symbolFrom(String symbol, int order, int priority) {
 
-    if (doPatternMatch(ALLOWED_BRACKET_SYMBOLS, symbol)) return Bracket.from(symbol);
-    if (doPatternMatch(ALLOWED_OPERATOR_SYMBOLS, symbol)) return Operator.form(symbol, order);
+    if (patternMatches(OPERATOR_SYMBOLS, symbol)) return Operator.form(symbol, order, priority);
+    if (patternMatches(BRACKET_SYMBOLS, symbol)) return Bracket.from(symbol);
     return Number.from(symbol);
   }
 }

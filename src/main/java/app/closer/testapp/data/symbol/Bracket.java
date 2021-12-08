@@ -1,9 +1,6 @@
 package app.closer.testapp.data.symbol;
 
-import app.closer.testapp.util.RegexHelper;
-
-public final class Bracket implements Symbol {
-
+public final class Bracket extends Symbol {
   private final boolean isOpening;
 
   public static Bracket from(String symbol) {
@@ -11,15 +8,11 @@ public final class Bracket implements Symbol {
   }
 
   private Bracket(String symbol) {
-    isOpening = RegexHelper.doPatternMatch(opening_brackets, symbol);
-  }
-
-  @Override
-  public Double obtain() {
-    return null;
+    isOpening = OPENING_BRACKETS_SYMBOLS.contains(symbol);
   }
 
   public boolean isOpening() {
     return isOpening;
   }
 }
+
