@@ -9,8 +9,6 @@ public enum Operation {
   MULTIPLY((l, r) -> l * r, '*'),
   DIVIDE((l, r) -> l / r, '/');
 
-  //todo should have single source of truth
-  public static final String ALLOWED_OPERATOR_SYMBOLS = "+-*/";
   private final char symbol;
   private final BiFunction<Double, Double, Double> function;
 

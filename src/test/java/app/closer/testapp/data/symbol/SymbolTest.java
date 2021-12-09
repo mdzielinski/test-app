@@ -1,11 +1,10 @@
 package app.closer.testapp.data.symbol;
 
 import static app.closer.testapp.data.symbol.SymbolFactory.symbolFrom;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.params.provider.Arguments.arguments;
 
-import app.closer.testapp.dataflow.ExpressionParsingException;
 import java.util.stream.Stream;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -14,7 +13,20 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 class SymbolTest {
   @Nested
-  class parsing {
+  class parsing_brackets {
+    static Stream<Arguments> brackets() {
+      return Stream.of(arguments("("), arguments(")"));
+    }
+
+    @ParameterizedTest
+    @MethodSource("brackets")
+    void operator(String symbol) {
+      assertTrue(symbolFrom(symbol, 0, 0) instanceof Bracket);
+    }
+  }
+
+  @Nested
+  class parsing_operators {
     static Stream<Arguments> operators() {
       return Stream.of(arguments("+"), arguments("-"), arguments("*"), arguments("/"));
     }
@@ -22,31 +34,43 @@ class SymbolTest {
     @ParameterizedTest
     @MethodSource("operators")
     void operator(String symbol) {
-      assertEquals(symbol, symbolFrom(symbol, 0, 0).toString());
+      assertTrue(symbolFrom(symbol, 0, 0) instanceof Operator);
     }
   }
 
   @Nested
-  class not_parsing {
-    static Stream<Arguments> neitherNumbersNorOperators() {
+  class parsing_numbers {
+    static Stream<Arguments> operators() {
       return Stream.of(
-          arguments("["),
-          arguments("&"),
-          arguments("="),
-          arguments("*&"),
-          arguments("&*"),
-          arguments("%"),
-          arguments("#"),
-          arguments("@"),
-          arguments("!"),
-          arguments(" "),
-          arguments("^"));
+          arguments("0.0"),
+          arguments("123456.7890"),
+          arguments("1234567890.1234567890"),
+          arguments(".12345678901234567890"),
+          arguments(".0"));
     }
 
     @ParameterizedTest
-    @MethodSource("neitherNumbersNorOperators")
-    void should_throw_when_not_parsed(String symbol) {
-      assertThrows(ExpressionParsingException.class, () -> symbolFrom(symbol, 0, 0));
+    @MethodSource("operators")
+    void operator(String symbol) {
+      assertTrue(symbolFrom(symbol, 0, 0) instanceof Number);
+    }
+  }
+
+  @Nested
+  class throwing_exception_while_parsing_numbers {
+    static Stream<Arguments> operators() {
+      return Stream.of(
+          arguments("00.0."),
+          arguments(".0.0"),
+          arguments(".00."),
+          arguments("0..0"),
+          arguments("1234567890." + ".1234567890"));
+    }
+
+    @ParameterizedTest
+    @MethodSource("operators")
+    void operator(String symbol) {
+      assertThrows(NumberFormatException.class, () -> symbolFrom(symbol, 0, 0));
     }
   }
 }

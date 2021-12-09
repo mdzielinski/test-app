@@ -16,13 +16,14 @@ class ValidationExceptionHandler {
   @ExceptionHandler({
     ConstraintViolationException.class,
     MethodArgumentNotValidException.class,
-    ExpressionParsingException.class
+    ExpressionParsingException.class,
+    NumberFormatException.class
   })
   public ResponseEntity<String> handleConstraintViolationException(Exception e) {
+
     ResponseEntity<String> response =
         ResponseEntity.status(HttpStatus.BAD_REQUEST).body("validation error");
     log.warn("Handled exception: ", e);
-    log.warn("Returning response: {}", response);
     return response;
   }
 }

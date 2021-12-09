@@ -7,7 +7,7 @@ import lombok.Getter;
 @Getter
 public final class Operator extends Symbol {
 
-  private static final int priority_change_per_bracket = 2;
+  private static final int priority_change_per_bracket = 10;
   private final char body;
   private final int order;
   private final int priority;
@@ -29,11 +29,11 @@ public final class Operator extends Symbol {
 
   @Override
   public boolean equals(Object obj) {
-    return obj.toString().equals(String.valueOf(body));
+    return super.equals(obj);
   }
 
   @Override
   public String toString() {
-    return String.valueOf(body);
+    return body + " p:" + priority + " o" + order;
   }
 }

@@ -90,7 +90,7 @@
 			"response": []
 		},
 		{
-			"name": "(2+2a*2)=validation errod",
+			"name": "(2+2a*2)=validation error",
 			"event": [
 				{
 					"listen": "test",
@@ -143,7 +143,7 @@
 							"});",
 							"",
 							"pm.test(\"Body matches string\", function () {",
-							"    pm.expect(pm.response.text()).equals(\"validation errod\");",
+							"    pm.expect(pm.response.text()).equals(\"validation error\");",
 							"});"
 						],
 						"type": "text/javascript"
@@ -226,7 +226,7 @@
 			"response": []
 		},
 		{
-			"name": "(2+2a*2)=validatoin error",
+			"name": "(2+2a*2)=validation error",
 			"event": [
 				{
 					"listen": "test",

@@ -12,14 +12,13 @@ import javax.validation.Payload;
 @Documented
 @Retention(RUNTIME)
 @Target(PARAMETER)
-@Constraint(validatedBy = {FormulaValidator.class, HttpServletRequestValidator.class})
-public @interface BasicFormula {
+@Constraint(validatedBy = {ExpressionValidator.class, HttpServletRequestValidator.class})
+public @interface BasicExpression {
   Class<?>[] groups() default {};
 
   String message() default
-      "Invalid mathematical formula. Allowed set of symbols: "
-          + "\"1233456780+-/*(),.\" with respect to mathematical formula rules. "
-          + "The dot \".\" is considered proper decimal separator.";
+      "Invalid mathematical expression. Allowed set of symbols: "
+          + "\"1233456780+-/*().\" with respect to mathematical expression rules. ";
 
   Class<? extends Payload>[] payload() default {};
 }

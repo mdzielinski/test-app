@@ -15,4 +15,3 @@ public final class Bracket extends Symbol {
     return isOpening;
   }
 }
-

@@ -6,11 +6,12 @@ import javax.validation.ConstraintValidatorContext;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-public class FormulaValidator implements ConstraintValidator<BasicFormula, Expression> {
+public class ExpressionValidator implements ConstraintValidator<BasicExpression, Expression> {
 
   @Override
-  public boolean isValid(Expression expression, ConstraintValidatorContext constraintValidatorContext) {
+  public boolean isValid(
+      Expression expression, ConstraintValidatorContext constraintValidatorContext) {
     log.debug("validating formula: \"{}\"", expression);
-    return BasicFormulaValidator.isValid(expression.getBody());
+    return Validator.isValid(expression.getBody());
   }
 }

@@ -21,8 +21,8 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 public class ExpressionControllerTest {
 
-  private ICalculator calculator;
-  private FormulaController controller;
+  private final ICalculator calculator;
+  private final FormulaController controller;
   private MockMvc mockMvc;
 
   @BeforeEach

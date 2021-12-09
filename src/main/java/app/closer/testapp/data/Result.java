@@ -1,24 +1,22 @@
 package app.closer.testapp.data;
 
-import java.math.BigDecimal;
-
 public final class Result {
 
-  private final BigDecimal body;
+  private final Double body;
 
-  public BigDecimal get() {
+  public Double get() {
     return this.body;
   }
 
-  public static Result of(BigDecimal val) {
+  public static Result of(Double val) {
     return new Result(val);
   }
 
   public static Result of(double val) {
-    return new Result(BigDecimal.valueOf(val));
+    return new Result(val);
   }
 
-  private Result(BigDecimal body) {
+  private Result(Double body) {
     this.body = body;
   }
 
